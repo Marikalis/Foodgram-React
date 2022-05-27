@@ -6,11 +6,11 @@ load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = False
 
-# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='*').split()
+ALLOWED_HOSTS = os.getenv('SERVER_NAMES', default='localhost').split()
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -53,6 +53,8 @@ TEMPLATES = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.User'
+
 WSGI_APPLICATION = 'foodgram.wsgi.application'
 
 DATABASES = {
@@ -89,11 +91,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
