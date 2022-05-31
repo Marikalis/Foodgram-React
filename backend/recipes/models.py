@@ -76,7 +76,7 @@ class Recipe(models.Model):
         upload_to='recipe_images')
     cooking_time = models.IntegerField(
         verbose_name='Время приготовления (в минутах)',
-        validators=[MinValueValidator(1, message=COOKING_TIME_GREATER_ONE)])
+        validators=(MinValueValidator(1, message=COOKING_TIME_GREATER_ONE)))
 
     class Meta:
         ordering = ('-id',)
@@ -95,18 +95,18 @@ class IngredientInRecipe(models.Model):
         on_delete=models.CASCADE)
     amount = models.IntegerField(
         verbose_name='Количество',
-        validators=[
+        validators=(
             MinValueValidator(1, message=AMOUNT_GREATER_ZERO)
-        ]
+        )
     )
 
     class Meta:
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'
-        constraints = [models.UniqueConstraint(
+        constraints = (models.UniqueConstraint(
             fields=['ingredient', 'recipe'],
             name='unique_ingredient'
-        )]
+        ))
 
 
 class Favorite(models.Model):
@@ -120,10 +120,10 @@ class Favorite(models.Model):
         on_delete=models.CASCADE)
 
     class Meta:
-        constraints = [models.UniqueConstraint(
+        constraints = (models.UniqueConstraint(
             fields=['user', 'recipe'],
             name='unique_favorite'
-        )]
+        ))
 
 
 class ShoppingCart(models.Model):
@@ -137,7 +137,7 @@ class ShoppingCart(models.Model):
         on_delete=models.CASCADE)
 
     class Meta:
-        constraints = [models.UniqueConstraint(
+        constraints = (models.UniqueConstraint(
             fields=['user', 'recipe'],
             name='unique_shopping_cart'
-        )]
+        ))
