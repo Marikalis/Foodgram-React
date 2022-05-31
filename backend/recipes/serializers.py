@@ -102,7 +102,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         return cooking_time
 
     def preprocess_ingredients(self):
-        ingredients = self.initial_data.get('ingredients')
+        ingredients = self.validated_data.get('ingredients')
         if not ingredients:
             raise serializers.ValidationError(
                 'Поле "ingredients" обязательное.'
@@ -116,9 +116,8 @@ class RecipeSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     'Ингредиенты заполнены некорректно.'
                 )
-            try:
-                result_ingredient = Ingredient.objects.get(id=pk)
-            except Ingredient.DoesNotExist:
+            result_ingredient = Ingredient.objects.get(id=pk)
+            if not result_ingredient:
                 raise serializers.ValidationError(
                     f'Ингредиент(id={pk}) не существует.'
                 )
