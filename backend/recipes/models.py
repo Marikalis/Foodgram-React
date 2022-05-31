@@ -76,7 +76,7 @@ class Recipe(models.Model):
         upload_to='recipe_images')
     cooking_time = models.IntegerField(
         verbose_name='Время приготовления (в минутах)',
-        validators=(MinValueValidator(1, message=COOKING_TIME_GREATER_ONE)))
+        validators=[MinValueValidator(1, message=COOKING_TIME_GREATER_ONE)])
 
     class Meta:
         ordering = ('-id',)
