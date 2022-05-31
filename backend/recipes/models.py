@@ -120,10 +120,10 @@ class Favorite(models.Model):
         on_delete=models.CASCADE)
 
     class Meta:
-        constraints = (models.UniqueConstraint(
+        constraints = [models.UniqueConstraint(
             fields=['user', 'recipe'],
             name='unique_favorite'
-        ))
+        )]
 
 
 class ShoppingCart(models.Model):
@@ -137,7 +137,7 @@ class ShoppingCart(models.Model):
         on_delete=models.CASCADE)
 
     class Meta:
-        constraints = (models.UniqueConstraint(
+        constraints = [models.UniqueConstraint(
             fields=['user', 'recipe'],
             name='unique_shopping_cart'
-        ))
+        )]
