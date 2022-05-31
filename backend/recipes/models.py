@@ -43,6 +43,12 @@ class Ingredient(models.Model):
         ordering = ('name',)
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'
+        constraints = [
+            models.UniqueConstraint(
+                fields=('name', 'measurement_unit'),
+                name='one_name_per_measurement_unit'
+            ),
+        ]
 
     def __str__(self):
         return self.name
@@ -53,24 +59,24 @@ class Recipe(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='recipes',
-        verbose_name='Автор'
-    )
+        verbose_name='Автор')
     name = models.CharField(verbose_name='Название', max_length=200)
     ingredients = models.ManyToManyField(
-        Ingredient, related_name='recipes',
-        verbose_name='Ингредиенты', through='IngredientInRecipe'
-    )
+        Ingredient,
+        related_name='recipes',
+        verbose_name='Ингредиенты',
+        through='IngredientInRecipe')
     tags = models.ManyToManyField(
-        Tag, related_name='recipes', verbose_name='Теги',
-    )
+        Tag,
+        related_name='recipes',
+        verbose_name='Теги')
     text = models.TextField(verbose_name='Описание', max_length=800)
     image = models.ImageField(
-        verbose_name='Картинка', upload_to='recipe_images'
-    )
+        verbose_name='Картинка',
+        upload_to='recipe_images')
     cooking_time = models.IntegerField(
         verbose_name='Время приготовления (в минутах)',
-        validators=[MinValueValidator(1, message=COOKING_TIME_GREATER_ONE)]
-    )
+        validators=[MinValueValidator(1, message=COOKING_TIME_GREATER_ONE)])
 
     class Meta:
         ordering = ('-id',)
