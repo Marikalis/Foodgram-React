@@ -99,6 +99,8 @@ class IngredientInRecipe(models.Model):
             MinValueValidator(1, message=AMOUNT_GREATER_ZERO)
         ]
     )
+    # Везде где я поменяла lists на tuples повылазили ошибки
+    # 'MinValueValidator'/'UniqueConstraint' object is not iterable
 
     class Meta:
         verbose_name = 'Ингредиент'
