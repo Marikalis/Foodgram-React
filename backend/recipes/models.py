@@ -99,8 +99,6 @@ class IngredientInRecipe(models.Model):
             MinValueValidator(1, message=AMOUNT_GREATER_ZERO),
         )
     )
-    # Везде где я поменяла lists на tuples повылазили ошибки
-    # 'MinValueValidator'/'UniqueConstraint' object is not iterable
 
     class Meta:
         verbose_name = 'Ингредиент'
@@ -122,10 +120,10 @@ class Favorite(models.Model):
         on_delete=models.CASCADE)
 
     class Meta:
-        constraints = [models.UniqueConstraint(
+        constraints = (models.UniqueConstraint(
             fields=['user', 'recipe'],
             name='unique_favorite'
-        )]
+        ),)
 
 
 class ShoppingCart(models.Model):
@@ -139,7 +137,7 @@ class ShoppingCart(models.Model):
         on_delete=models.CASCADE)
 
     class Meta:
-        constraints = [models.UniqueConstraint(
+        constraints = (models.UniqueConstraint(
             fields=['user', 'recipe'],
             name='unique_shopping_cart'
-        )]
+        ),)
