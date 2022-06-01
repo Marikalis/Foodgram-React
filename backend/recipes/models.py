@@ -105,10 +105,10 @@ class IngredientInRecipe(models.Model):
     class Meta:
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'
-        constraints = [models.UniqueConstraint(
+        constraints = (models.UniqueConstraint(
             fields=['ingredient', 'recipe'],
             name='unique_ingredient'
-        )]
+        ),)
 
 
 class Favorite(models.Model):
