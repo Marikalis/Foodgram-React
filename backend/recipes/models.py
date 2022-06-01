@@ -95,9 +95,9 @@ class IngredientInRecipe(models.Model):
         on_delete=models.CASCADE)
     amount = models.IntegerField(
         verbose_name='Количество',
-        validators=[
-            MinValueValidator(1, message=AMOUNT_GREATER_ZERO)
-        ]
+        validators=(
+            MinValueValidator(1, message=AMOUNT_GREATER_ZERO),
+        )
     )
     # Везде где я поменяла lists на tuples повылазили ошибки
     # 'MinValueValidator'/'UniqueConstraint' object is not iterable
